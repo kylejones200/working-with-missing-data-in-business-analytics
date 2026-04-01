@@ -1,13 +1,44 @@
 # Working with Missing Data in Business Analytics
 
-**Published:** 2025-05-04
-**Medium:** [https://medium.com/@kyle-t-jones/working-with-missing-data-in-business-analytics-74b1f5f0efd2](https://medium.com/@kyle-t-jones/working-with-missing-data-in-business-analytics-74b1f5f0efd2)
+This project demonstrates techniques for handling missing data in business analytics.
 
-## About
+## Article
 
-Place the code for this article in this repository.
-The original article export is saved as `article.md`.
+Medium article: [Working with Missing Data in Business Analytics](https://medium.com/@kylejones_47003/working-with-missing-data-in-business-analytics-74b1f5f0efd2)
 
-## Files
+## Project Structure
 
-Add your `.ipynb`, `.py`, `.yaml`, `.js`, `.ts`, or other project files here.
+```
+.
+├── README.md           # This file
+├── main.py            # Main entry point
+├── config.yaml        # Configuration file
+├── requirements.txt   # Python dependencies
+├── src/               # Core functions
+│   ├── core.py        # Missing data analysis functions
+│   └── plotting.py    # Tufte-style plotting utilities
+├── tests/             # Unit tests
+├── data/              # Data files
+└── images/            # Generated plots and figures
+```
+
+## Configuration
+
+Edit `config.yaml` to customize:
+- Data source (URL, file path, or synthetic generation)
+- Imputation strategy (mean, median, iterative)
+- Output settings
+
+## Missing Data Strategies
+
+Imputation methods:
+- **Mean/Median**: Simple univariate imputation
+- **Iterative**: Multivariate imputation using other features
+- **Group-based**: Imputation within groups
+- **Indicator variables**: Track missingness patterns
+
+## Caveats
+
+- By default, generates synthetic data with artificial missingness.
+- Imputation strategy should match data characteristics.
+- Missingness patterns may indicate data quality issues.
