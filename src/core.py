@@ -57,7 +57,7 @@ def impute_missing_values(df: pd.DataFrame, strategy: str = 'mean') -> pd.DataFr
     return df
 
 def plot_missing_analysis(df: pd.DataFrame, title: str, output_path: Path):
- """Plot missing data analysis """
+    """Plot missing data analysis """
     fig, ax = plt.subplots(figsize=(10, 6))
     
     missing_counts = df.isnull().sum()
