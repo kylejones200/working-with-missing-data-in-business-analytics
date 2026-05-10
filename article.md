@@ -1,34 +1,25 @@
+---
+author: "Kyle Jones"
+date_published: "May 4, 2025"
+date_exported_from_medium: "November 10, 2025"
+canonical_link: "https://medium.com/@kyle-t-jones/working-with-missing-data-in-business-analytics-74b1f5f0efd2"
+---
+
 # Working with Missing Data in Business Analytics Missing data is more than a technical inconvenience --- it's a window
 into how your data was collected, what went wrong, and what kind of...
 
 ### **Working with Missing Data in Business Analytics**
-Missing data is more than a technical inconvenience --- it's a window
-into how your data was collected, what went wrong, and what kind of
-assumptions you're willing to make. Before running any model, you need
-to ask: why is this value missing, and what does that tell me?
+Missing data is more than a technical inconvenience --- it's a window into how your data was collected, what went wrong, and what kind of assumptions you're willing to make. Before running any model, you need to ask: why is this value missing, and what does that tell me?
 
-Every dataset has gaps. These missing values could come from user
-errors, system failures, skipped survey questions, or unreported
-transactions. The first step is to identify the *mechanism* behind the
-missingness. Statisticians usually describe this in three categories:
+Every dataset has gaps. These missing values could come from user errors, system failures, skipped survey questions, or unreported transactions. The first step is to identify the *mechanism* behind the missingness. Statisticians usually describe this in three categories:
 
-- **Missing Completely at Random (MCAR):** The missingness has no
-  pattern or relationship with other data. This is the cleanest type to
-  handle.
-- **Missing at Random (MAR):** The missingness depends on other
-  observed variables. For instance, older customers might be less likely
-  to complete online surveys.
-- **Missing Not at Random (MNAR):** The missingness depends on the
-  unobserved value itself. For example, people with low incomes may
-  choose not to report their income.
+- **Missing Completely at Random (MCAR):** The missingness has no pattern or relationship with other data. This is the cleanest type to handle.
+- **Missing at Random (MAR):** The missingness depends on other observed variables. For instance, older customers might be less likely to complete online surveys.
+- **Missing Not at Random (MNAR):** The missingness depends on the unobserved value itself. For example, people with low incomes may choose not to report their income.
 
-Knowing which of these applies isn't always obvious. But it matters. If
-you assume data is missing at random when it's not, your imputations can
-be biased and introduce misleading patterns.
+Knowing which of these applies isn't always obvious. But it matters. If you assume data is missing at random when it's not, your imputations can be biased and introduce misleading patterns.
 
-The Python library `missingno` offers
-simple but effective visualizations. Here's how to explore a dataset for
-missing values:
+The Python library `missingno` offers simple but effective visualizations. Here's how to explore a dataset for missing values:
 
 ```python
 # pip install missingno
@@ -49,29 +40,22 @@ msno.heatmap(df)
 <figcaption>Example of a dataset with some missing values</figcaption>
 
 
-These plots help you see whether some columns are always missing
-together, or whether missingness is concentrated in certain rows. This
-informs your decision about whether to drop, impute, or flag the data.
+These plots help you see whether some columns are always missing together, or whether missingness is concentrated in certain rows. This informs your decision about whether to drop, impute, or flag the data.
 
 ### Strategies for Handling Missing Values
-Once you've identified the structure of missingness, you can decide how
-to handle it. There's no universal solution, but these are the common
-techniques:
+Once you've identified the structure of missingness, you can decide how to handle it. There's no universal solution, but these are the common techniques:
 
 #### a. Dropping Rows or Columns
-If the missingness is small in scale or appears completely at random,
-you might drop rows or columns:
+If the missingness is small in scale or appears completely at random, you might drop rows or columns:
 
 ``` 
 df.dropna(inplace=True)
 ```
 
-This is a blunt instrument. Use it only when the data you're dropping is
-negligible or not critical to your analysis.
+This is a blunt instrument. Use it only when the data you're dropping is negligible or not critical to your analysis.
 
 #### b. Simple Imputation
-You can replace missing values with a constant (like 0 or -1), the mean,
-median, or mode of the column:
+You can replace missing values with a constant (like 0 or -1), the mean, median, or mode of the column:
 
 ```python
 from sklearn.impute import SimpleImputer
@@ -80,26 +64,19 @@ imputer = SimpleImputer(strategy='mean')
 df['revenue'] = imputer.fit_transform(df[['revenue']])
 ```
 
-This works well when the variable is approximately symmetric and the
-missingness is random. If the distribution is skewed, use the median
-instead.
+This works well when the variable is approximately symmetric and the missingness is random. If the distribution is skewed, use the median instead.
 
 #### c. Group-Based Imputation
-You can impute based on grouped characteristics. For example, fill
-missing revenue values with the median revenue from the same product
-category:
+You can impute based on grouped characteristics. For example, fill missing revenue values with the median revenue from the same product category:
 
 ``` 
 df['revenue'] = df.groupby('product_category')['revenue'].transform(lambda x: x.fillna(x.median()))
 ```
 
-This preserves within-group patterns and is better aligned with business
-structure.
+This preserves within-group patterns and is better aligned with business structure.
 
 #### d. Multivariate Imputation
-Sometimes, you can infer a missing value based on other variables using
-models. Scikit-learn's `IterativeImputer`
-uses chained regression:
+Sometimes, you can infer a missing value based on other variables using models. Scikit-learn's `IterativeImputer` uses chained regression:
 
 ```python
 from sklearn.experimental import enable_iterative_imputer
@@ -109,9 +86,7 @@ imp = IterativeImputer()
 df_imputed = pd.DataFrame(imp.fit_transform(df), columns=df.columns)
 ```
 
-This allows you to impute revenue using relationships with quantity
-sold, customer rating, or time of year. It's slower but more
-statistically principled.
+This allows you to impute revenue using relationships with quantity sold, customer rating, or time of year. It's slower but more statistically principled.
 
 #### e. Indicator Variables
 Another approach is to flag where data is missing:
@@ -120,32 +95,18 @@ Another approach is to flag where data is missing:
 df['revenue_missing'] = df['revenue'].isna().astype(int)
 ```
 
-This binary flag can be included in your model to capture the signal
-from the missingness itself.
+This binary flag can be included in your model to capture the signal from the missingness itself.
 
-Imputation isn't just about filling gaps. It changes the behavior of
-your model. Suppose you're running a customer churn prediction, and you
-fill missing income with the mean. That imputes low-income customers
-with an artificially high value, making your model overly optimistic
-about retention.
+Imputation isn't just about filling gaps. It changes the behavior of your model. Suppose you're running a customer churn prediction, and you fill missing income with the mean. That imputes low-income customers with an artificially high value, making your model overly optimistic about retention.
 
 Here's what's at stake:
 
-- **Bias**: Poor imputation can push your coefficients in the wrong
-  direction.
-- **Variance**: Dropping too many rows can shrink your dataset and
-  reduce predictive power.
-- **Interpretability**: Some imputation methods (like multivariate
-  ones) obscure what values were real and what were guessed.
-- **Business insight**: The fact that a value was missing may tell you
-  something important. Never assume the absence of data is
-  meaningless.
+- **Bias**: Poor imputation can push your coefficients in the wrong direction.
+- **Variance**: Dropping too many rows can shrink your dataset and reduce predictive power.
+- **Interpretability**: Some imputation methods (like multivariate ones) obscure what values were real and what were guessed.
+- **Business insight**: The fact that a value was missing may tell you something important. Never assume the absence of data is meaningless.
 
-Missing data forces you to make assumptions. Visualizing it helps you
-understand the structure of what's gone. Imputing values makes those
-assumptions explicit. Don't treat missingness as a nuisance. It's a
-clue, and your handling of it shapes every step downstream in your
-analytics workflow.
+Missing data forces you to make assumptions. Visualizing it helps you understand the structure of what's gone. Imputing values makes those assumptions explicit. Don't treat missingness as a nuisance. It's a clue, and your handling of it shapes every step downstream in your analytics workflow.
 
 missing_data_analysis.py
 
@@ -266,12 +227,4 @@ This script:
 - Injects missing values for demonstration
 - Visualizes the missing patterns
 - Applies five different strategies for handling missingness
-- Outputs an enriched DataFrame with imputed columns and missingness
-  flags
-::::::::By [Kyle Jones](https://medium.com/@kyle-t-jones) on
-[May 4, 2025](https://medium.com/p/74b1f5f0efd2).
-
-[Canonical
-link](https://medium.com/@kyle-t-jones/working-with-missing-data-in-business-analytics-74b1f5f0efd2)
-
-Exported from [Medium](https://medium.com) on November 10, 2025.
+- Outputs an enriched DataFrame with imputed columns and missingness flags
