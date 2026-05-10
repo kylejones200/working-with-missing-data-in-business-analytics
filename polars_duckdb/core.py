@@ -54,23 +54,24 @@ def impute_missing_values(
     raise ValueError(f"Unknown strategy: {strategy!r}. Use 'mean', 'median', or 'forward'.")
 
 
-def plot_missing_analysis(df: pl.DataFrame, title: str, output_path: Path):
+def plot_missing_analysis(df: pl.DataFrame, title: str, output_path: Path, plot: bool = False):
     null_counts = df.null_count()
     cols   = df.columns
     counts = [null_counts[0, c] for c in cols]
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    if any(c > 0 for c in counts):
-        ax.bar(range(len(cols)), counts, color="#4A90A4", alpha=0.7, edgecolor="none")
-        ax.set_xticks(range(len(cols)))
-        ax.set_xticklabels(cols, rotation=45, ha="right")
-    else:
-        ax.text(0.5, 0.5, "No missing values", ha="center", va="center",
-                transform=ax.transAxes, fontsize=14)
+    if plot:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        if any(c > 0 for c in counts):
+            ax.bar(range(len(cols)), counts, color="#4A90A4", alpha=0.7, edgecolor="none")
+            ax.set_xticks(range(len(cols)))
+            ax.set_xticklabels(cols, rotation=45, ha="right")
+        else:
+            ax.text(0.5, 0.5, "No missing values", ha="center", va="center",
+                    transform=ax.transAxes, fontsize=14)
 
-    ax.set_xlabel("Column")
-    ax.set_ylabel("Missing Count")
-    ax.set_title(title)
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=100, bbox_inches="tight")
-    plt.close()
+        ax.set_xlabel("Column")
+        ax.set_ylabel("Missing Count")
+        ax.set_title(title)
+        plt.tight_layout()
+        plt.savefig(output_path, dpi=100, bbox_inches="tight")
+        plt.close()
