@@ -11,7 +11,6 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
 from core import analyze_missing_data, impute_missing_values, plot_missing_analysis
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
