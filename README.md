@@ -32,10 +32,10 @@ Edit `config.yaml` to customize:
 ## Missing Data Strategies
 
 Imputation methods:
-- **Mean/Median**: Simple univariate imputation
-- **Iterative**: Multivariate imputation using other features
-- **Group-based**: Imputation within groups
-- **Indicator variables**: Track missingness patterns
+- Mean/Median: Simple univariate imputation
+- Iterative: Multivariate imputation using other features
+- Group-based: Imputation within groups
+- Indicator variables: Track missingness patterns
 
 ## Caveats
 

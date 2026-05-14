@@ -8,14 +8,14 @@ canonical_link: "https://medium.com/@kyle-t-jones/working-with-missing-data-in-b
 # Working with Missing Data in Business Analytics Missing data is more than a technical inconvenience --- it's a window
 into how your data was collected, what went wrong, and what kind of...
 
-### **Working with Missing Data in Business Analytics**
+### Working with Missing Data in Business Analytics
 Missing data is more than a technical inconvenience --- it's a window into how your data was collected, what went wrong, and what kind of assumptions you're willing to make. Before running any model, you need to ask: why is this value missing, and what does that tell me?
 
 Every dataset has gaps. These missing values could come from user errors, system failures, skipped survey questions, or unreported transactions. The first step is to identify the *mechanism* behind the missingness. Statisticians usually describe this in three categories:
 
-- **Missing Completely at Random (MCAR):** The missingness has no pattern or relationship with other data. This is the cleanest type to handle.
-- **Missing at Random (MAR):** The missingness depends on other observed variables. For instance, older customers might be less likely to complete online surveys.
-- **Missing Not at Random (MNAR):** The missingness depends on the unobserved value itself. For example, people with low incomes may choose not to report their income.
+- Missing Completely at Random (MCAR): The missingness has no pattern or relationship with other data. This is the cleanest type to handle.
+- Missing at Random (MAR): The missingness depends on other observed variables. For instance, older customers might be less likely to complete online surveys.
+- Missing Not at Random (MNAR): The missingness depends on the unobserved value itself. For example, people with low incomes may choose not to report their income.
 
 Knowing which of these applies isn't always obvious. But it matters. If you assume data is missing at random when it's not, your imputations can be biased and introduce misleading patterns.
 
@@ -101,10 +101,10 @@ Imputation isn't just about filling gaps. It changes the behavior of your model.
 
 Here's what's at stake:
 
-- **Bias**: Poor imputation can push your coefficients in the wrong direction.
-- **Variance**: Dropping too many rows can shrink your dataset and reduce predictive power.
-- **Interpretability**: Some imputation methods (like multivariate ones) obscure what values were real and what were guessed.
-- **Business insight**: The fact that a value was missing may tell you something important. Never assume the absence of data is meaningless.
+- Bias: Poor imputation can push your coefficients in the wrong direction.
+- Variance: Dropping too many rows can shrink your dataset and reduce predictive power.
+- Interpretability: Some imputation methods (like multivariate ones) obscure what values were real and what were guessed.
+- Business insight: The fact that a value was missing may tell you something important. Never assume the absence of data is meaningless.
 
 Missing data forces you to make assumptions. Visualizing it helps you understand the structure of what's gone. Imputing values makes those assumptions explicit. Don't treat missingness as a nuisance. It's a clue, and your handling of it shapes every step downstream in your analytics workflow.
 
