@@ -1,0 +1,13 @@
+[project]
+name = "working-with-missing-data-in-business-analytics"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.9",
+    "missingno>=0.5.2",
+    "numpy>=2.4.4",
+    "pandas>=3.0.3",
+    "pytest>=9.0.3",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.8.0",
+]

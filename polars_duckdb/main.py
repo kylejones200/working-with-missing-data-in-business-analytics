@@ -2,17 +2,19 @@
 """Working with missing data — Polars + DuckDB rewrite (no sklearn imputers)."""
 
 import argparse
-import yaml
 import logging
-import numpy as np
-import polars as pl
 from datetime import date
-from dateutil.relativedelta import relativedelta
 from pathlib import Path
 
+import numpy as np
+import polars as pl
+import yaml
 from core import analyze_missing_data, impute_missing_values, plot_missing_analysis
+from dateutil.relativedelta import relativedelta
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 
 def load_config(config_path: Path = None) -> dict:
@@ -31,11 +33,10 @@ def make_synthetic(seed: int = 42) -> pl.DataFrame:
 
     # inject missing values
     null_pass = set(range(10, 16))
-    null_rev  = set(range(5, 11))
+    null_rev = set(range(5, 11))
     pass_list = [None if i in null_pass else float(passengers[i]) for i in range(n)]
-    rev_list  = [
-        None if i in null_rev
-        else float(passengers[i] * 10 + rng.normal(0, 50))
+    rev_list = [
+        None if i in null_rev else float(passengers[i] * 10 + rng.normal(0, 50))
         for i in range(n)
     ]
 
@@ -49,7 +50,11 @@ def main():
     args = parser.parse_args()
 
     config = load_config(args.config)
-    output_dir = Path(args.output_dir) if args.output_dir else Path(config["output"]["figures_dir"])
+    output_dir = (
+        Path(args.output_dir)
+        if args.output_dir
+        else Path(config["output"]["figures_dir"])
+    )
     output_dir.mkdir(exist_ok=True)
 
     df = make_synthetic(seed=config["data"]["seed"])
@@ -60,7 +65,9 @@ def main():
     logging.info("Missing Data Summary:")
     for col, count in analysis["missing_counts"].items():
         if count > 0:
-            logging.info(f"  {col}: {count} ({analysis['missing_percentages'][col]:.2f}%)")
+            logging.info(
+                f"  {col}: {count} ({analysis['missing_percentages'][col]:.2f}%)"
+            )
 
     logging.info(f"Imputing with strategy: {strategy!r}")
     df_imputed = impute_missing_values(df, numeric_cols, strategy=strategy)
@@ -71,7 +78,9 @@ def main():
     df_imputed.write_csv(output_dir / "imputed_output.csv")
     logging.info(f"Imputed data saved → {output_dir / 'imputed_output.csv'}")
 
-    plot_missing_analysis(df, "Missing Data (before)", output_dir / "missing_analysis.png")
+    plot_missing_analysis(
+        df, "Missing Data (before)", output_dir / "missing_analysis.png"
+    )
 
     logging.info(f"Analysis complete. Figures saved to {output_dir}")
 

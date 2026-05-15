@@ -1,4 +1,9 @@
-import logging
+"""Generated from Jupyter notebook: 2025-05-06 missing values in analytics
+
+Magics and shell lines are commented out. Run with a normal Python interpreter."""
+
+
+# --- code cell ---
 
 import matplotlib.pyplot as plt
 import missingno as msno
@@ -10,10 +15,6 @@ from sklearn.impute import IterativeImputer, SimpleImputer
 
 def main():
     # Load sample dataset with missing values
-
-    # Configure logging
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
-
     df = pd.read_csv(
         "https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv"
     )
@@ -36,10 +37,10 @@ def main():
     plt.savefig("missing_heatmap.png")
     plt.show()
     # Basic stats
-    logging.info("Missing values summary:\n", df.isnull().sum())
+    print("Missing values summary:\n", df.isnull().sum())
     # Strategy 1: Drop rows with missing values
     df_dropped = df.dropna()
-    logging.info(f"After dropping, shape: {df_dropped.shape}")
+    print(f"After dropping, shape: {df_dropped.shape}")
     # Strategy 2: Simple mean imputation
     simple_imputer = SimpleImputer(strategy="mean")
     df["Passengers_mean"] = simple_imputer.fit_transform(df[["Passengers"]])
@@ -58,8 +59,8 @@ def main():
     df["Revenue_missing"] = df["Revenue"].isna().astype(int)
     df["Passengers_missing"] = df["Passengers"].isna().astype(int)
     # Display final preview
-    logging.info("\nImputed Data Preview:")
-    logging.info(
+    print("\nImputed Data Preview:")
+    print(
         df[
             [
                 "Month",

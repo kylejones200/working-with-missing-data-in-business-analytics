@@ -8,7 +8,6 @@ from typing import Any
 
 import pandas as pd
 
-
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO,
@@ -29,5 +28,3 @@ def read_csv(path: str | Path, **kwargs: Any) -> pd.DataFrame:
     csv_path = Path(path)
     logger.info("Reading CSV from '%s'", csv_path)
     return pd.read_csv(csv_path, **kwargs)
-
-
