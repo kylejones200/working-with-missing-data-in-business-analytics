@@ -7,10 +7,9 @@ import duckdb
 import polars as pl
 import matplotlib.pyplot as plt
 from pathlib import Path
-from typing import Dict, List
 
 
-def analyze_missing_data(df: pl.DataFrame) -> Dict:
+def analyze_missing_data(df: pl.DataFrame) -> dict:
     null_counts = df.null_count()
     total = df.height
     counts = {c: null_counts[0, c] for c in df.columns}
@@ -23,7 +22,7 @@ def analyze_missing_data(df: pl.DataFrame) -> Dict:
 
 def impute_missing_values(
     df: pl.DataFrame,
-    numeric_cols: List[str],
+    numeric_cols: list[str],
     strategy: str = "mean",
 ) -> pl.DataFrame:
     """

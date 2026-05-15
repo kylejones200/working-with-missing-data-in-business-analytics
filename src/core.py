@@ -3,9 +3,7 @@
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from typing import Dict
 from sklearn.impute import SimpleImputer
-from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 import matplotlib.pyplot as plt
 import logging
@@ -31,7 +29,7 @@ def load_data_with_missing(url: str = None, file_path: Path = None) -> pd.DataFr
     
     return df
 
-def analyze_missing_data(df: pd.DataFrame) -> Dict:
+def analyze_missing_data(df: pd.DataFrame) -> dict:
     """Analyze missing data patterns."""
     return {
         'missing_counts': df.isnull().sum().to_dict(),

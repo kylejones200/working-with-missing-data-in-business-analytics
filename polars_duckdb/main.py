@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Working with missing data — Polars + DuckDB rewrite (no sklearn imputers)."""
 
-import sys
 import argparse
 import yaml
 import logging

@@ -9,7 +9,6 @@ import argparse
 import yaml
 import logging
 import numpy as np
-import pandas as pd
 from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -19,7 +18,7 @@ def load_config(config_path: Path = None) -> dict:
     if config_path is None:
         config_path = Path(__file__).parent / 'config.yaml'
     
-    with open(config_path, 'r') as f:
+    with open(config_path) as f:
         return yaml.safe_load(f)
 
 def main():
