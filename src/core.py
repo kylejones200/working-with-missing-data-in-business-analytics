@@ -64,33 +64,35 @@ def plot_missing_analysis(
     df: pd.DataFrame, title: str, output_path: Path, plot: bool = False
 ):
     """Plot missing data analysis"""
-    if plot:
-        fig, ax = plt.subplots(figsize=(10, 6))
+    if not plot:
+        return
 
-        missing_counts = df.isnull().sum()
-        if missing_counts.sum() > 0:
-            ax.bar(
-                range(len(missing_counts)),
-                missing_counts.values,
-                color="#4A90A4",
-                alpha=0.7,
-                edgecolor="none",
-            )
-            ax.set_xticks(range(len(missing_counts)))
-            ax.set_xticklabels(missing_counts.index, rotation=45, ha="right")
-        else:
-            ax.text(
-                0.5,
-                0.5,
-                "No missing values",
-                ha="center",
-                va="center",
-                transform=ax.transAxes,
-                fontsize=14,
-            )
+    fig, ax = plt.subplots(figsize=(10, 6))
 
-        ax.set_xlabel("Column")
-        ax.set_ylabel("Missing Count")
+    missing_counts = df.isnull().sum()
+    if missing_counts.sum() > 0:
+        ax.bar(
+            range(len(missing_counts)),
+            missing_counts.values,
+            color="#4A90A4",
+            alpha=0.7,
+            edgecolor="none",
+        )
+        ax.set_xticks(range(len(missing_counts)))
+        ax.set_xticklabels(missing_counts.index, rotation=45, ha="right")
+    else:
+        ax.text(
+            0.5,
+            0.5,
+            "No missing values",
+            ha="center",
+            va="center",
+            transform=ax.transAxes,
+            fontsize=14,
+        )
 
-        plt.savefig(output_path, dpi=100, bbox_inches="tight")
-        plt.close()
+    ax.set_xlabel("Column")
+    ax.set_ylabel("Missing Count")
+
+    plt.savefig(output_path, dpi=100, bbox_inches="tight")
+    plt.close()

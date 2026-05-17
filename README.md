@@ -42,3 +42,11 @@ Imputation methods:
 - By default, generates synthetic data with artificial missingness.
 - Imputation strategy should match data characteristics.
 - Missingness patterns may indicate data quality issues.
+
+## Disclaimer
+
+Educational/demo code only. Not financial, safety, or engineering advice. Use at your own risk. Verify results independently before any production or operational use.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
