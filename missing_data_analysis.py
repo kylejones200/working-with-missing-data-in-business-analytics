@@ -10,10 +10,8 @@ from sklearn.impute import IterativeImputer, SimpleImputer
 
 def main():
     # Load sample dataset with missing values
-
     # Configure logging
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-
     df = pd.read_csv(
         "https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv"
     )

@@ -3,6 +3,7 @@ name = "working-with-missing-data-in-business-analytics"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "pydantic>=2.10.0",
     "matplotlib>=3.10.9",
     "missingno>=0.5.2",
     "numpy>=2.4.4",
@@ -11,3 +12,7 @@ dependencies = [
     "pyyaml>=6.0.3",
     "scikit-learn>=1.8.0",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

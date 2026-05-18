@@ -61,7 +61,6 @@ def plot_missing_analysis(
     null_counts = df.null_count()
     cols = df.columns
     counts = [null_counts[0, c] for c in cols]
-
     if plot:
         fig, ax = plt.subplots(figsize=(10, 6))
         if any(c > 0 for c in counts):

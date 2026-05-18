@@ -17,7 +17,6 @@ logging.basicConfig(
 
 def read_csv(path: str | Path, **kwargs: Any) -> pd.DataFrame:
     """Read a CSV file into a DataFrame with basic logging.
-
     Args:
         path: File path to the CSV.
         **kwargs: Additional keyword arguments forwarded to ``pandas.read_csv``.
